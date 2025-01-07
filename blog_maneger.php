@@ -15,6 +15,8 @@
     }
 
     function createBlog($blogname,$blogmessage,$username):bool{
+        require "comment_menager.php";
+
         $fs = fopen("data/blog.csv","a");
         if ($fs) {
             $lines = file("data/blog.csv");
@@ -30,15 +32,29 @@
         } else {
             echo "<p style='color:red;'>Error: Cannot open file for writing.</p>";
         }
+        createCommentFile($id);
         return true;
     }
 
     function getAllBlog(): array {
         $blog = file("data/blog.csv");
         if ($blog === false) {
-
             return [];
         }
         return $blog;
+    }
+
+    function getBlogByID($blogid) {
+        $data = file("data/blog.csv");
+
+        foreach ($data as $blog) {
+            $blogdata = explode("/", $blog);
+
+            $id = $blogdata[0];
+            if($id == $blogid){
+                return $blogdata;
+            }
+        }
+        return [];
     }
 ?>

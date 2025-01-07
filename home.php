@@ -40,14 +40,15 @@
             $username = $blogdata[3];
             $time = $blogdata[4];
 
-            // แสดงผลข้อมูลแต่ละบล็อก
             echo '
-                <div class="card">
-                    <div class="card-header">' . $blogname . '</div>
-                    <div class="card-body">'. $blogmessage .'Content</div>
-                    <div class="card-footer">'. $username  .' เมื่อ '. $time .' </div>
-                </div>
-                <br>
+                <a = href="blog.php?id='.$id.'">
+                    <div class="card">
+                        <div class="card-header">' . $blogname . '</div>
+                        <div class="card-body">'. $blogmessage .'</div>
+                        <div class="card-footer">'. $username  .' เมื่อ '. $time .' </div>
+                    </div>
+                    <br>
+                </a>
             ';
         }
     ?>
