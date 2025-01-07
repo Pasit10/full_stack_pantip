@@ -1,19 +1,3 @@
-<?php
-    require 'blog_maneger.php';
-
-    $name = $_POST['name'];
-    $blogmessage = $_POST['blogmessage'];
-    $username = $_POST['username'];
-    if (!empty($name) && !empty($blogmessage) && !empty($username)) {
-        if(createBlog($name,$blogmessage,$username)){
-            echo "<script>
-                window.location.href = 'home.php';
-                alert('Blog created successfully!');
-            </script>";
-        }
-    }
-?>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,26 +27,31 @@
             </div>
         </div>
     </nav>
-    <div class="d-flex justify-content-center align-items-center w-100 h-100">
-        <form method="POST" action="blog_create.php" style="width: 100%; max-width: 600px;">
+    <div class="d-flex justify-content-center align-items-center w-100 h-100" style="min-height: 100vh; background-color: #f9f9f9;">
+        <form method="POST" action="blog_create.php" style="width: 100%; max-width: 90%; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #fff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <h4 style="text-align: center; margin-bottom: 20px; color: #333; font-weight: bold;">สร้างกระทู้ใหม่</h4>
+            
             <div class="form-group">
-                <label for="usr">ระบุหัวข้อกระทู้:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <label for="name" style="font-weight: bold;">ระบุหัวข้อกระทู้:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="กรอกหัวข้อกระทู้..." required>
             </div>
+            
             <div class="form-group">
-                <label for="comment">เขียนรายละเอียดของกระทู้:</label>
-                <textarea class="form-control" rows="5" id="blogmessage" name="blogmessage" required></textarea>
+                <label for="blogmessage" style="font-weight: bold;">เขียนรายละเอียดของกระทู้:</label>
+                <textarea class="form-control" rows="15" id="blogmessage" name="blogmessage" placeholder="กรอกรายละเอียดของกระทู้..." required></textarea>
             </div>
+            
             <div class="form-group">
-                <label for="comment">ชื่อผู้เขียน:</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <label for="username" style="font-weight: bold;">ชื่อผู้เขียน:</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="กรอกชื่อของคุณ..." required>
             </div>
+            
             <div class="form-group">
-                <button type="submit" class="btn btn-secondary" style="background-color:rgb(211, 255, 206); color: black">
+                <button type="submit" class="btn btn-secondary" style="background-color: rgb(211, 255, 206); color: black; font-weight: bold;">
                     ยืนยัน
                 </button>
                 <a href="home.php">
-                    <button type="button" class="btn btn-secondary ml-auto" style="background-color:rgb(255, 206, 206); color: black">
+                    <button type="button" class="btn btn-secondary" style="background-color: rgb(255, 206, 206); color: black; font-weight: bold;">
                         ยกเลิก
                     </button>
                 </a>
@@ -70,3 +59,21 @@
         </form>
     </div>
 </body>
+
+<?php
+    require 'blog_maneger.php';
+
+    if(isset($_POST['name']) && isset($_POST['blogmessage']) && isset($_POST['username'])){
+        $name = $_POST['name'];
+        $blogmessage = $_POST['blogmessage'];
+        $username = $_POST['username'];
+        if (!empty($name) && !empty($blogmessage) && !empty($username)) {
+            if(createBlog($name,$blogmessage,$username)){
+                echo "<script>
+                    window.location.href = 'home.php';
+                    alert('Blog created successfully!');
+                </script>";
+            }
+        }
+    }
+?>

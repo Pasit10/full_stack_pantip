@@ -1,10 +1,14 @@
-<?php
+<?php 
     require 'comment_menager.php';
-    $blogid = $_POST['blogid'];
-    $comment = $_POST['comment'];
-    $username = $_POST['username'];
-    if (!empty($comment) && !empty($username)) {
-        addComment($blogid,$comment,$username);
+    include "blog_maneger.php";
+
+    if(isset($_POST['blogid']) && isset($_POST['comment']) && isset($_POST['username'])){
+        $blogid = $_POST['blogid'];
+        $comment = $_POST['comment'];
+        $username = $_POST['username'];
+        if (!empty($comment) && !empty($username)) {
+            addComment($blogid,$comment,$username);
+        }
     }
 ?>
 
@@ -37,8 +41,6 @@
         </div>
     </nav>
     <?php
-        include "blog_maneger.php";
-
         $blogid = $_GET["id"];
         $blogdata = getBlogByID($blogid);
 
@@ -49,13 +51,13 @@
         $time = $blogdata[4];
 
         echo '
-            <div class="card">
-                <div class="card-header">' . $blogname . '</div>
-                <div class="card-body">'. $blogmessage .'</div>
-                <div class="card-footer">'. $username  .' เมื่อ '. $time .' </div>
+            <div style="border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 16px auto; width: 95%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #fff;">
+                <h5 style="margin: 0 0 8px; font-size: 18px; font-weight: bold;">'. htmlspecialchars($blogname) .'</h5>
+                <h6 style="margin: 0 0 12px; font-size: 14px; color: #6c757d;">'. htmlspecialchars($username) .' เมื่อ'. htmlspecialchars($time) .'</h6>
+                <p style="margin: 0; font-size: 16px; color: #333;">'. htmlspecialchars($blogmessage) .'</p>
             </div>
             <br>
-            <h4 style="margin-left: 10px;">ความคิดเห็น:</h4>
+            <h4 style="padding-left: 5%; margin-bottom: 16px; font-weight: bold; color: #333;">ความคิดเห็น:</h4>
         ';
 
         $data = getCommentByBlogID($blogid);
@@ -68,16 +70,20 @@
             $comment_time = $commentdata[3];
 
             echo '
-                <div class="card">
-                    <div class="card-header">' . $comment_data . '</div>
-                    <div class="card-body">'. $comment_name .' เมื่อ '. $comment_time  .' </div>
+                <div class="card" style="border: 1px solid #ddd; border-radius: 8px; margin: 16px auto; width: 90%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #fff;">
+                    <div class="card-header" style="background-color: #f8f9fa;  padding: 12px; border-bottom: 1px solid #ddd;">
+                        '. htmlspecialchars($comment_data) .'
+                    </div>
+                    <div class="card-body" style="padding: 16px; font-size: 14px; color: #333;">
+                        '. htmlspecialchars($comment_name) .' เมื่อ '. htmlspecialchars($comment_time) .'
+                    </div>
                 </div>
-                <br>
             ';
         }
     ?>
+
     <div class="d-flex justify-content-center align-items-center">
-        <form method="POST" action="blog.php?id=<?= htmlspecialchars($blogid) ?>" style="width: 100%; max-width: 600px;">
+        <form method="POST" action="blog.php?id=<?= htmlspecialchars($blogid) ?>"  style="width: 90%; border: 1px solid #ddd; border-radius: 8px; padding: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #fff;">
             <!-- Include the blog ID as a hidden input -->
             <input type="hidden" name="blogid" value="<?= $id ?>">
             <div class="form-group">

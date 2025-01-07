@@ -7,7 +7,7 @@
             // พยายามสร้างไฟล์
             if (touch($file)) {
                 // เปลี่ยนสิทธิ์ของไฟล์เป็น 0666 (ให้ผู้ใช้ทุกคนสามารถอ่านและเขียน)
-                chmod($file, 777);
+                chmod($file, 0777);
                 echo "File created and permissions set to 0666.<br>";
             } else {
                 echo "Failed to create the file. Please check directory permissions.<br>";
@@ -45,11 +45,3 @@
         return $comment;
     }
 ?>
-
-<!-- function getAllBlog(): array {
-        $blog = file("data/blog.csv");
-        if ($blog === false) {
-            return [];
-        }
-        return $blog;
-    } -->

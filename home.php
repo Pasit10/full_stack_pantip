@@ -27,6 +27,9 @@
             </div>
         </div>
     </nav>
+    <div style="padding-left: 2.5%; margin-top: 16px; font-weight: bold; color: #333;">
+        <h4>หน้าแรก:</h4>
+    </div>
     <?php
         include "blog_maneger.php";
 
@@ -41,21 +44,24 @@
             $time = $blogdata[4];
 
             echo '
-                <a = href="blog.php?id='.$id.'">
-                    <div class="card">
-                        <div class="card-header">' . $blogname . '</div>
-                        <div class="card-body">'. $blogmessage .'</div>
-                        <div class="card-footer">'. $username  .' เมื่อ '. $time .' </div>
+                <a href="blog.php?id='. $id . '" style="text-decoration: none; color: inherit;">
+                    <div style="border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 16px auto; width: 95%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #fff;">
+                        <h5 style="margin: 0 0 8px; font-size: 18px; font-weight: bold;">'. htmlspecialchars($blogname) .'</h5>
+                        <h6 style="margin: 0 0 12px; font-size: 14px; color: #6c757d;">'. htmlspecialchars($username) .' เมื่อ'. htmlspecialchars($time) .'</h6>
+                        <p style="margin: 0; font-size: 16px; color: #333;">'.htmlspecialchars( $blogmessage) .'</p>
                     </div>
-                    <br>
                 </a>
             ';
         }
     ?>
 </body>
 
-<!-- <div class="card">
-  <div class="card-header">Header</div>
-  <div class="card-body">Content</div>
-  <div class="card-footer">Footer</div>
+<!-- <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
 </div> -->
