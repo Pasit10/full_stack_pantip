@@ -50,6 +50,8 @@
         $username = $blogdata[3];
         $time = $blogdata[4];
 
+        $length = sizeof($blogdata);
+
         echo '
             <div style="border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 16px auto; width: 95%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #fff;">
                 <h5 style="margin: 0 0 8px; font-size: 18px; font-weight: bold;">'. htmlspecialchars($blogname) .'</h5>
@@ -57,10 +59,11 @@
                 <p style="margin: 0; font-size: 16px; color: #333;">'. htmlspecialchars($blogmessage) .'</p>
             </div>
             <br>
-            <h4 style="padding-left: 5%; margin-bottom: 16px; font-weight: bold; color: #333;">ความคิดเห็น:</h4>
         ';
 
         $data = getCommentByBlogID($blogid);
+        $length = sizeof($data);
+        echo '<h4 style="padding-left: 5%; margin-bottom: 16px; font-weight: bold; color: #333;">ความคิดเห็น ('.$length.' ความคิดเห็น):</h4>';
         foreach ($data as $comment){
             $commentdata = explode("/", $comment);
 

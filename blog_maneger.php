@@ -1,18 +1,18 @@
 <?php
-    // ระบุชื่อไฟล์
-    $file = 'data/blog.csv';
+    // // ระบุชื่อไฟล์
+    // $file = 'data/blog.csv';
 
-    // ตรวจสอบว่าไฟล์มีอยู่หรือไม่
-    if (!file_exists($file)) {
-        // พยายามสร้างไฟล์
-        if (touch($file)) {
-            // เปลี่ยนสิทธิ์ของไฟล์เป็น 0666 (ให้ผู้ใช้ทุกคนสามารถอ่านและเขียน)
-            chmod($file, 777);
-            echo "File created and permissions set to 0666.<br>";
-        } else {
-            echo "Failed to create the file. Please check directory permissions.<br>";
-        }
-    }
+    // // ตรวจสอบว่าไฟล์มีอยู่หรือไม่
+    // if (!file_exists($file)) {
+    //     // พยายามสร้างไฟล์
+    //     if (touch($file)) {
+    //         // เปลี่ยนสิทธิ์ของไฟล์เป็น 0666 (ให้ผู้ใช้ทุกคนสามารถอ่านและเขียน)
+    //         chmod($file, 777);
+    //         echo "File created and permissions set to 0666.<br>";
+    //     } else {
+    //         echo "Failed to create the file. Please check directory permissions.<br>";
+    //     }
+    // }
 
     function createBlog($blogname,$blogmessage,$username):bool{
         require "comment_menager.php";
