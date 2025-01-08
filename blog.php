@@ -20,6 +20,58 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <title>WebBoard</title>
+    <style>
+         body {
+            background-color: antiquewhite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #343a40, #495057);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-create {
+            background: linear-gradient(45deg, #FFEB3B, #FFC107);
+            color: white;
+            font-weight: bold;
+            border-radius: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
+        }
+
+        .btn-create:hover {
+            background: linear-gradient(45deg, #FFC107, #FF9800);
+            transform: scale(1.05);
+        }
+        .blog-card {
+            border: none;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .blog-subtitle {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
