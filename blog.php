@@ -1,15 +1,15 @@
-<?php 
-    require 'comment_menager.php';
-    include "blog_maneger.php";
+<?php
+require 'comment_menager.php';
+include "blog_maneger.php";
 
-    if(isset($_POST['blogid']) && isset($_POST['comment']) && isset($_POST['username'])){
-        $blogid = $_POST['blogid'];
-        $comment = $_POST['comment'];
-        $username = $_POST['username'];
-        if (!empty($comment) && !empty($username)) {
-            addComment($blogid,$comment,$username);
-        }
+if (isset($_POST['blogid']) && isset($_POST['comment']) && isset($_POST['username'])) {
+    $blogid = $_POST['blogid'];
+    $comment = $_POST['comment'];
+    $username = $_POST['username'];
+    if (!empty($comment) && !empty($username)) {
+        addComment($blogid, $comment, $username);
     }
+}
 ?>
 
 <head>
@@ -23,8 +23,8 @@
 
     <title>WebBoard</title>
     <style>
-         body {
-            background-color: antiquewhite;
+        body {
+            background-color: #fef7e7;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -34,44 +34,79 @@
         }
 
         .btn-create {
-            background: linear-gradient(45deg, #FFEB3B, #FFC107);
+            background: linear-gradient(45deg, #FFD700, #FFA500);
             color: white;
             font-weight: bold;
-            border-radius: 20px;
+            border-radius: 25px;
             transition: background-color 0.3s, transform 0.2s;
             border: none;
         }
 
         .btn-create:hover {
-            background: linear-gradient(45deg, #FFC107, #FF9800);
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
             transform: scale(1.05);
         }
+
         .blog-card {
             border: none;
             border-radius: 16px;
             background: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, box-shadow 0.2s;
+            margin: 20px auto;
+            padding: 16px;
+            width: 70%;
             position: relative;
-            overflow: hidden;
-            margin-bottom: 30px;
+        }   
+        
+        .form-container {
+            width: 70%;
+            /* max-width: 700px; */
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .blog-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        .form-control:focus {
+            border-color: #ffcc00;
+            box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
         }
 
-        .blog-title {
-            font-size: 20px;
+        .btn-secondary {
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ffde59;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        h4 {
+            text-align: left;
+            color: #4a4a4a;
+            margin-bottom: 20px;
             font-weight: bold;
-            color: #333;
         }
 
-        .blog-subtitle {
-            font-size: 14px;
-            color: #6c757d;
-            margin-bottom: 10px;
+        .card {
+            border: none;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 20px auto;
+            padding: 16px;
+            width: 70%;
+            position: relative;
+        }
+        .commenttotal{
+            margin-left: 15%;
+            color: gray;
         }
     </style>
 </head>
@@ -94,68 +129,68 @@
             </div>
         </nav>
     </div>
+
     <?php
-        $blogid = $_GET["id"];
-        $blogdata = getBlogByID($blogid);
+    $blogid = $_GET["id"];
+    $blogdata = getBlogByID($blogid);
 
-        $id = $blogdata[0];
-        $blogname = trim($blogdata[1],'"');
-        $blogmessage = trim($blogdata[2],'"');
-        $username = trim($blogdata[3],'"');
-        $time = trim($blogdata[4],'"');
+    $id = $blogdata[0];
+    $blogname = trim($blogdata[1], '"');
+    $blogmessage = trim($blogdata[2], '"');
+    $username = trim($blogdata[3], '"');
+    $time = trim($blogdata[4], '"');
 
-        $length = sizeof($blogdata);
-
-        echo '
-            <div style="border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 16px auto; width: 95%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #fff;">
-                <h5 style="margin: 0 0 8px; font-size: 18px; font-weight: bold;">'. htmlspecialchars($blogname) .'</h5>
+    echo '
+            <div class="blog-card">
+                <h5>' . htmlspecialchars($blogname) . '</h5>
                 <h6 class="blog-subtitle"><i class="fas fa-user mr-1"></i>' . htmlspecialchars($username) . ' - <i class="far fa-clock mr-1"></i> ' . htmlspecialchars($time) . '</h6>
-                <p style="margin: 0; font-size: 16px; color: #333;">'. htmlspecialchars($blogmessage) .'</p>
+                <p>' . htmlspecialchars($blogmessage) . '</p>
             </div>
-            <br>
         ';
 
-        $data = getCommentByBlogID($blogid);
-        echo '<h4 style="padding-left: 5%; margin-bottom: 16px; font-weight: bold; color: #333;">ความคิดเห็น ('.$length.' ความคิดเห็น):</h4>';
+    $data = getCommentByBlogID($blogid);
+    echo '<h4 class="commenttotal">Comment (' . count($data) . ' Comment):</h4>';
+    
 
-        foreach ($data as $comment){
-            $commentdata = explode("/", $comment);
+    foreach ($data as $comment) {
+        $commentdata = explode("/", $comment);
 
-            $comment_id = $commentdata[0];
-            $comment_data = trim($commentdata[1],'"');
-            $comment_name = trim($commentdata[2],'"');
-            $comment_time = trim($commentdata[3],'"');
+        $comment_id = $commentdata[0];
+        $comment_data = trim($commentdata[1], '"');
+        $comment_name = trim($commentdata[2], '"');
+        $comment_time = trim($commentdata[3], '"');
 
-            echo '
-                <div class="card" style="border: 1px solid #ddd; border-radius: 8px; margin: 16px auto; width: 90%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #fff;">
-                    <div class="card-header" style="background-color: #f8f9fa;  padding: 12px; border-bottom: 1px solid #ddd;">
-                        '. htmlspecialchars($comment_data) .'
+        echo '
+                <div class="card">
+                    <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
+                        ' . htmlspecialchars($comment_data) . '
                     </div>
-                    <div class="card-body" style="padding: 16px; font-size: 14px; color: #333;">
-                        '. htmlspecialchars($comment_name) .' เมื่อ '. htmlspecialchars($comment_time) .'
+                    <div class="card-body" style="padding: 16px;">
+                        <small><i class="fas fa-user mr-1"></i>' . htmlspecialchars($comment_name) . ' | <i class="far fa-clock mr-1"></i>' . htmlspecialchars($comment_time) . '</small>
                     </div>
                 </div>
             ';
-        }
+    }
     ?>
 
-    <div class="d-flex justify-content-center align-items-center">
-        <form method="POST" action="blog.php?id=<?= htmlspecialchars($blogid) ?>"  style="width: 90%; border: 1px solid #ddd; border-radius: 8px; padding: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #fff;">
-            <!-- Include the blog ID as a hidden input -->
+    <div class="form-container">
+        <form method="POST" action="blog.php?id=<?= htmlspecialchars($blogid) ?>">
             <input type="hidden" name="blogid" value="<?= $id ?>">
             <div class="form-group">
-                <label for="comment">เขียน comment:</label>
+                <label for="comment">เขียน Comment:</label>
                 <textarea class="form-control" rows="5" id="comment" name="comment" required></textarea>
             </div>
             <div class="form-group">
-                <label for="comment">ชื่อผู้เขียน:</label>
+                <label for="username">ชื่อผู้เขียน:</label>
                 <input type="text" class="form-control" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-secondary" style="background-color:rgb(211, 255, 206); color: black">
+                <button type="submit" class="btn btn-secondary"
+                    style="background-color:rgb(211, 255, 206); color: black">
                     ยืนยัน
                 </button>
-                <button type="reset" class="btn btn-secondary ml-auto" style="background-color:rgb(255, 206, 206); color: black">
+                <button type="reset" class="btn btn-secondary ml-auto"
+                    style="background-color:rgb(255, 206, 206); color: black">
                     ยกเลิก
                 </button>
             </div>

@@ -26,7 +26,7 @@
                 $lastid = sizeof($line);
             }
             $id = $lastid + 1;
-            $time = date("Y-m-d H:i:s");
+            $time = date("Y-M-d H:i:s");
             $data = [$id,$comment,$username,$time];
             fputcsv($fs,$data,"/");
             fclose($fs);
