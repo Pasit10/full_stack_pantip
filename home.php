@@ -160,21 +160,26 @@
         include "blog_maneger.php";
 
         $data = getAllBlog();
-        
+
         echo '  <div>
                     <h2 class=" font-weight-bold mb-4">
                         <span>Content Blog</span>
                     </h2>
                 </div>';
-                
+
         foreach ($data as $blog) {
             $blogdata = explode("/", $blog);
 
             $id = $blogdata[0];
-            $blogname = $blogdata[1];
-            $blogmessage = $blogdata[2];
-            $username = $blogdata[3];
-            $time = $blogdata[4];
+            $blogname = trim($blogdata[1],'"');
+            $blogmessage = trim($blogdata[2],'"');
+            $username = trim($blogdata[3],'"');
+            $time = trim($blogdata[4],'"');
+
+            if(strlen($blogmessage) > 1300) {
+                $newblogname = substr($blogmessage,0,1300) . ' <span style="color:blue;">อ่านต่อ...</span>';
+                $blogmessage = $newblogname;
+            }
 
 
             echo '
@@ -185,7 +190,7 @@
                                     ' . htmlspecialchars($blogname) . '
                                 </h5>
                                 <h6 class="blog-subtitle"><i class="fas fa-user mr-1"></i> ' . htmlspecialchars($username) . ' - <i class="far fa-clock mr-1"></i> ' . htmlspecialchars($time) . '</h6>
-                                <p class="blog-content">' . htmlspecialchars($blogmessage) . '</p>
+                                <p class="blog-content">' . $blogmessage . '</p>
                             </div>
                         </a>
                     ';

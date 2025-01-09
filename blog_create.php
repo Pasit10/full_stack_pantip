@@ -2,33 +2,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <title>WebBoard</title>
+
+    <style>
+        .navbar {
+            background: linear-gradient(90deg, #343a40, #495057);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-create {
+            background: linear-gradient(45deg, #FFEB3B, #FFC107);
+            color: white;
+            font-weight: bold;
+            border-radius: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
+        }
+
+        .btn-create:hover {
+            background: linear-gradient(45deg, #FFC107, #FF9800);
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="d-flex align-items-center">
-                <a class="navbar-brand" href="home.php">
-                    <img src="image/pantip_icon.png" width="50px" height="50px" class="mr-2">
-                    Pantip
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="home.php">
+                    <img src="image/pantip_icon.png" width="45px" height="45px" class="mr-2">
+                    <span>Pantip</span>
                 </a>
+                <div class="ml-auto">
+                    <a href="blog_create.php">
+                        <button class="btn btn-create px-4 py-2">
+                            Create Blog
+                        </button>
+                    </a>
+                </div>
             </div>
-            <div class="ml-auto">
-                <a href="blog_create.php">
-                    <button class="btn navbar-btn" style="background-color: #FFEB3B; color: black; border: none; white-space: nowrap;">
-                        Create Blog
-                    </button>
-                </a>
-            </div>
-        </div>
-    </nav>
-    <div class="d-flex justify-content-center align-items-center w-100 h-100" style="min-height: 100vh; background-color: #f9f9f9;">
-        <form method="POST" action="blog_create.php" style="width: 100%; max-width: 90%; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #fff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        </nav>
+    </div>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f9f9f9;">
+        <form method="POST" action="blog_create.php" style="width: 77%; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #fff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <h4 style="text-align: center; margin-bottom: 20px; color: #333; font-weight: bold;">สร้างกระทู้ใหม่</h4>
 
             <div class="form-group">
